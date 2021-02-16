@@ -14,7 +14,7 @@ pub struct Watchdog {
     presc: u16,
 }
 
-use core::arch::arm::__NOP;
+use core::arch::arm::__nop;
 
 impl Watchdog {
     pub unsafe fn new() -> &'static mut Watchdog {
@@ -25,8 +25,8 @@ impl Watchdog {
         unsafe {
             core::ptr::write_volatile(&mut self.unlock, 0xC520);
             core::ptr::write_volatile(&mut self.unlock, 0xD928);
-            __NOP();
-            __NOP();
+            __nop();
+            __nop();
             let mut ctrl = core::ptr::read_volatile(&self.stctrlh);
             ctrl &= !(0x00000001);
             core::ptr::write_volatile(&mut self.stctrlh, ctrl);
